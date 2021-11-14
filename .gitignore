@@ -1,0 +1,7 @@
+*__pycache__
+.vscode
+assets/.env
+.VSCodeCounter
+*.txt
+config.env
+*.log
