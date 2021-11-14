@@ -38,7 +38,7 @@ def create_app():
     app.config["SECRET_KEY"] = list(mongo.db.users.find())[0]["Password"]
 
     # setup logger only if not in debug mode
-    if app.debug:
+    if not app.debug:
 
         limiter = Limiter(app, key_func=get_remote_address)
 
