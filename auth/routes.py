@@ -35,7 +35,13 @@ def login():
 
             current_app.logger.info(f"Login Successful - Username: {username}")
 
-            return jsonify({"access_token": token, "user": json.loads(json_util.dumps(user))})
+            user = {
+                "Name": user["Name"],
+                "Account_Ids": [id for id in user["Accounts"].keys()]
+            }
+
+            return jsonify({"access_token": token, "user": user})
+            # return jsonify({"access_token": token, "user": json.loads(json_util.dumps(user))})
 
     current_app.logger.info(
         f"Invalid Username and/or Password - Username: {username}")
