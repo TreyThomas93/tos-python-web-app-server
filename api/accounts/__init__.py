@@ -19,7 +19,7 @@ def get_status(current_user, account_id):
     if account_id in accounts:
 
         status = accounts[account_id]["Active"]
-
+        
         return jsonify({"account_status": status, "account_id": account_id}), 200
 
     return jsonify({"error": "invalid account id", "account_id": account_id}), 400

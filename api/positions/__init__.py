@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from assets.extensions import mongo
 from assets.decors import errorhandler, tokenrequired
+from pprint import pprint
 
 positions = Blueprint("positions", __name__, url_prefix="/positions")
 
@@ -33,7 +34,7 @@ def get_positions(current_user, account_id):
 
     position_name = request.args.get("position_name")
 
-    collection = mongo.db.open_positions if position_name == "open" else mongo.db.closed_positions
+    collection = mongo.db.open_positions if position_name == "open_positions" else mongo.db.closed_positions
 
     # get positions
     positions = []
@@ -44,5 +45,5 @@ def get_positions(current_user, account_id):
         obj["_id"] = str(obj["_id"])
 
         positions.append(obj)
-
+    
     return jsonify({"positions": positions, "account_id": account_id}), 200

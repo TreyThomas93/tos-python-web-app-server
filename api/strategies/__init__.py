@@ -4,6 +4,7 @@ from assets.decors import errorhandler, tokenrequired
 from bson.objectid import ObjectId
 from api.strategies.helpers import maxDrawdown, sharpeRatio
 import statistics
+from pprint import pprint
 
 strategies = Blueprint("strategies", __name__, url_prefix="/strategies")
 
@@ -116,7 +117,7 @@ def get_strategies(current_user, account_id):
         del strategies_obj[key]["Loss"]
 
         strategies.append(value)
-
+    
     return jsonify({"strategies": strategies, "account_id": account_id}), 200
 
 
