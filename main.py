@@ -4,6 +4,7 @@ from api.accounts import accounts
 from api.strategies import strategies
 from api.positions import positions
 from api.queue import queue
+from api.forbidden import forbidden
 from auth.routes import auth
 from assets.timeformatter import Formatter
 
@@ -51,6 +52,8 @@ def create_app():
 
         limiter.limit("100/minute")(queue)
 
+        limiter.limit("100/minute")(forbidden)
+
         # 30 requests per minute allowed
         limiter.limit("30/minute")(auth)
 
@@ -71,6 +74,8 @@ def create_app():
     app.register_blueprint(positions)
 
     app.register_blueprint(queue)
+
+    app.register_blueprint(forbidden)
 
     app.register_blueprint(auth)
 

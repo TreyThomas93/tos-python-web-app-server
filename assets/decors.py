@@ -31,7 +31,7 @@ def tokenrequired(f):
     def decorated(*args, **kwargs):
 
         token = request.headers.get("x-access-token")
-
+        
         # check blacklist
         blacklisted = mongo.db.jwtblacklist.find_one({"Token": token})
 

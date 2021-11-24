@@ -117,28 +117,30 @@ def get_strategies(current_user, account_id):
         del strategies_obj[key]["Loss"]
 
         strategies.append(value)
-    
+
     return jsonify({"strategies": strategies, "account_id": account_id}), 200
 
 
-@ strategies.route("/update", methods=["PUT"])
+@ strategies.route("/<account_id>", methods=["PUT"])
 @ tokenrequired
 @ errorhandler
-def update_strategy(current_user):
+def update_strategy(current_user, account_id):
 
     data = request.json
 
-    _id = data['_id']
-
-    data.pop("_id", None)
-
     resp = mongo.db.strategies.update_one(
-        {"_id": ObjectId(_id)},
-        {"$set": data})
+        {"Strategy": data["strategy"], "Account_ID": int(account_id)},
+        {"$set": {
+            "Active": data["active"],
+            "Asset_Type": data["asset_type"],
+            "Order_Type": data["order_type"],
+            "Position_Type": data["position_type"],
+            "Position_Size": data["position_size"],
+        }})
 
-    # if update did not occur because no account id found
-    if resp.matched_count == 0 or resp.modified_count == 0:
+    # if update did not occur because no strategy found with account id
+    if resp.matched_count == 0:
 
-        return jsonify({"error": "failed to update status", "_id": _id}), 400
+        return jsonify({"error": "failed to update strategy"}), 400
 
-    return jsonify({"success": "status updated", "_id": _id}), 201
+    return jsonify({"success": "strategy updated"}), 201
