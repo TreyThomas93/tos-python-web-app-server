@@ -56,7 +56,7 @@ def create_app():
         # 30 requests per minute allowed
         limiter.limit("30/minute")(auth)
 
-        file_handler = MultiFileHandler(filename='logs/error.log', mode='a')
+        file_handler = MultiFileHandler(filename=f'{THIS_FOLDER}/logs/error.log', mode='a')
 
         formatter = Formatter('%(asctime)s - %(levelname)s - %(message)s')
 

@@ -1,8 +1,12 @@
 import logging
 from logging.handlers import RotatingFileHandler
+import os
+from pathlib import Path
 
 # file_handler = RotatingFileHandler("logs/system.log", mode="a", maxBytes=10000, backupCount=1)
-
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+path = Path(THIS_FOLDER)
+root = path.parent
 
 class MultiFileHandler(RotatingFileHandler):
 
@@ -23,19 +27,19 @@ class MultiFileHandler(RotatingFileHandler):
 
         if levelname == "WARNING":
 
-            file_id = "logs/warning.log"
+            file_id = f"{root}/logs/warning.log"
 
         elif levelname == "ERROR":
 
-            file_id = "logs/error.log"
+            file_id = f"{root}/logs/error.log"
 
         elif levelname == "DEBUG":
 
-            file_id = "logs/debug.log"
+            file_id = f"{root}/logs/debug.log"
 
         elif levelname == "INFO":
 
-            file_id = "logs/info.log"
+            file_id = f"{root}/logs/info.log"
 
         if file_id is not None:
 
