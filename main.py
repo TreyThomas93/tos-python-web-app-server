@@ -20,6 +20,7 @@ ca = certifi.where()
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(dotenv_path=f"{THIS_FOLDER}/config.env")
 
+
 def create_app():
 
     app = Flask(__name__)
@@ -28,9 +29,7 @@ def create_app():
 
     app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
-    app.config["ENV"] = os.getenv('ENV')
-
-    app.config["DEBUG"] = os.getenv('DEBUG')
+    app.config["FLASK_ENV"] = os.getenv('ENV')
 
     mongo.init_app(app, tlsCAFile=ca)
 
@@ -80,6 +79,7 @@ def create_app():
     app.register_blueprint(auth)
 
     return app
+
 
 app = create_app()
 
