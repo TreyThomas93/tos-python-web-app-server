@@ -20,7 +20,6 @@ ca = certifi.where()
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(dotenv_path=f"{THIS_FOLDER}/config.env")
 
-
 def create_app():
 
     app = Flask(__name__)
