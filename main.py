@@ -29,7 +29,7 @@ def create_app():
 
     app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
-    app.config["FLASK_ENV"] = os.getenv('ENV')
+    app.config["FLASK_ENV"] = os.getenv('FLASK_ENV')
 
     mongo.init_app(app, tlsCAFile=ca)
 
@@ -83,4 +83,6 @@ def create_app():
 
 app = create_app()
 
-app.run()
+if app.config["FLASK_ENV"] == "development":
+    
+    app.run()
